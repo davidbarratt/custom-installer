@@ -1,0 +1,14 @@
+{
+  "name": "davidbarratt/custom-installer",
+  "type": "composer-installer",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/davidbarratt/custom-installer",
+  "autoload": {
+    "psr-0": {
+      "DavidBarratt\\CustomInstaller\\": "src/"
+    }
+  },
+  "extra": {
+    "class": "DavidBarratt\\CustomInstaller\\Installer"
+  },
+}
