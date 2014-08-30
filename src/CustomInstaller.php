@@ -1,6 +1,6 @@
 <?php
 /**
-  * Composer Installer.
+  * Custom Installer.
   *
   * @author David Barratt <david@davidwbarratt.com>
   * @copyright Copyright (c) 2014, David Barratt
@@ -10,7 +10,6 @@ namespace DavidBarratt\CustomInstaller;
 
 use Composer\Installer\LibraryInstaller;
 use Composer\Package\PackageInterface;
-// use Composer\Repository\InstalledRepositoryInterface;
 
 class CustomInstaller extends LibraryInstaller
 {

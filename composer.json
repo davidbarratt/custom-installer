@@ -1,6 +1,7 @@
 {
   "name": "davidbarratt/custom-installer",
-  "type": "composer-installer",
+  "description": "Install custom types into custom locations.",
+  "type": "composer-plugin",
   "license": "Apache-2.0",
   "homepage": "https://github.com/davidbarratt/custom-installer",
   "autoload": {
@@ -9,6 +10,9 @@
     }
   },
   "extra": {
-    "class": "DavidBarratt\\CustomInstaller\\Installer"
+    "class": "DavidBarratt\\CustomInstaller\\Plugin"
   },
+  "require": {
+    "composer-plugin-api": "1.0.0"
+  }
 }
