@@ -5,7 +5,7 @@
   "license": "Apache-2.0",
   "homepage": "https://github.com/davidbarratt/custom-installer",
   "autoload": {
-    "psr-0": {
+    "psr-4": {
       "DavidBarratt\\CustomInstaller\\": "src/"
     }
   },
