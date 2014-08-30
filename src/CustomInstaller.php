@@ -26,7 +26,7 @@ class CustomInstaller extends LibraryInstaller
         'type' => $type,
       );
 
-      $prettyName = $this->package->getPrettyName();
+      $prettyName = $package->getPrettyName();
 
       if (strpos($prettyName, '/') !== FALSE) {
 
