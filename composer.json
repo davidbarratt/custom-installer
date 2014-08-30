@@ -10,7 +10,7 @@
     }
   },
   "extra": {
-    "class": "DavidBarratt\\CustomInstaller\\Plugin"
+    "class": "DavidBarratt\\CustomInstaller\\CustomInstallerPlugin"
   },
   "require": {
     "composer-plugin-api": "1.0.0"
