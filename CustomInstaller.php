@@ -5,7 +5,6 @@
   * @author David Barratt <david@davidwbarratt.com>
   * @copyright Copyright (c) 2014, David Barratt
   */
-
 namespace DavidBarratt\CustomInstaller;
 
 use Composer\Installer\LibraryInstaller;
@@ -57,14 +56,14 @@ class CustomInstaller extends LibraryInstaller
         if (!empty($extra['custom-installer'])) {
 
           if (!empty($extra['custom-installer'][$packageType])) {
-            return TRUE;
+            return true;
           }
 
         }
 
       }
 
-      return FALSE;
+      return false;
   }
 
   /**
