@@ -6,7 +6,7 @@ Adds a root-level custom [type](https://getcomposer.org/doc/04-schema.md#type) i
 Simply require this library in your composer.json file. Typically this will be added as a dependency of the custom [type](https://getcomposer.org/doc/04-schema.md#type) to ensure that the library is loaded before the library that needs it. However, this can be added to the root composer.json, as long as it goes before any library that needs it.
 ```json
 "require": {
-    "davidbarratt/custom-installer": "@dev"
+    "davidbarratt/custom-installer": "1.0.*@alpha"
 }
 ```
 
