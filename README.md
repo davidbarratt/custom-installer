@@ -5,8 +5,10 @@ Adds a root-level custom [type](https://getcomposer.org/doc/04-schema.md#type) i
 ## Installation
 Simply require this library in your composer.json file. Typically this will be added as a dependency of the custom [type](https://getcomposer.org/doc/04-schema.md#type) to ensure that the library is loaded before the library that needs it. However, this can be added to the root composer.json, as long as it goes before any library that needs it.
 ```json
-"require": {
-    "davidbarratt/custom-installer": "1.0.*@alpha"
+{
+    "require": {
+        "davidbarratt/custom-installer": "1.0.*@alpha"
+    }
 }
 ```
 
@@ -17,11 +19,13 @@ The added parameter(s) are only allowed on the root to avoid conflicts between m
 You may use [Composer Installer](https://github.com/composer/installers) type [installation paths](https://github.com/composer/installers#custom-install-paths) with the variables `{$name}`, `{$vendor}`, and `{$type}`. Each package will go in it’s respective folder in the order in which they are installed.
 
 ```json
-"extra": {
-    "custom-installer": {
-        "drupal-core": "web/",
-        "drupal-site": "web/sites/{$name}/",
-        "random-type": "custom/{$type}/{$vendor}/{$name}/"
+{
+    "extra": {
+        "custom-installer": {
+            "drupal-core": "web/",
+            "drupal-site": "web/sites/{$name}/",
+            "random-type": "custom/{$type}/{$vendor}/{$name}/"
+        }
     }
 }
 ```
