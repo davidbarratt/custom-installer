@@ -13,14 +13,14 @@ Simply require this library in your composer.json file. Typically this will be a
 ## Usage
 The added parameter(s) are only allowed on the root to avoid conflicts between multiple libraries. This also prevents a project owner from having a directory accidentally wiped out by a library. 
 
-### custom-installer (root-level)
+#### custom-installer (root-level)
 You may use [Composer Installer](https://github.com/composer/installers) type [installation paths](https://github.com/composer/installers#custom-install-paths) with the variables `{$name}`, `{$vendor}`, and `{$type}`. Each package will go in it’s respective folder in the order in which they are installed. 
 
 ```json
 "extra": {
     "custom-installer": {
         "drupal-core": "web/",
-        "drupal-site": "web/sites/{$name}/"
+        "drupal-site": "web/sites/{$name}/“,
         “random-type”: “custom/{$type}/{$vendor}/{$name}/”
     }
 }
