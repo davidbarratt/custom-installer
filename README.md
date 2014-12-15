@@ -45,7 +45,7 @@ would get overwritten. To preserve that, you then should add to your `composer.j
 {
     "extra": {
         "custom-installer-preserve-subpaths": [
-            "modules/"
+            "web/sites/"
         ]
     }
 }
