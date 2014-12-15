@@ -9,6 +9,7 @@ namespace DavidBarratt\CustomInstaller;
 
 use Composer\Installer\LibraryInstaller;
 use Composer\Package\PackageInterface;
+use Composer\Repository\InstalledRepositoryInterface;
 
 class CustomInstaller extends LibraryInstaller
 {
