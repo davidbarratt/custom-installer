@@ -22,9 +22,9 @@ You may use [Composer Installer](https://github.com/composer/installers) type [i
 {
     "extra": {
         "custom-installer": {
-            "drupal-core": "web/",
-            "drupal-site": "web/sites/{$name}/",
-            "random-type": "custom/{$type}/{$vendor}/{$name}/"
+            "web/": ["type:drupal-core"],
+            "web/sites/{$name}/": ["type:drupal-site"],
+            "custom/{$type}/{$vendor}/{$name}/": ["type:random-type"]
         }
     }
 }
