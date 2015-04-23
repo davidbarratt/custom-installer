@@ -6,7 +6,7 @@
   "homepage": "https://github.com/davidbarratt/custom-installer",
   "autoload": {
     "psr-4": {
-      "DavidBarratt\\CustomInstaller\\": ""
+      "DavidBarratt\\CustomInstaller\\": "src"
     }
   },
   "extra": {
