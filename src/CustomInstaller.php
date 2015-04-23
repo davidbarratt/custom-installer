@@ -8,81 +8,85 @@
 namespace DavidBarratt\CustomInstaller;
 
 use Composer\Installer\LibraryInstaller;
+use Composer\Package\Package;
 use Composer\Package\PackageInterface;
 
 class CustomInstaller extends LibraryInstaller
 {
 
     /**
+     * @var \DavidBarratt\CustomInstaller\Configuration
+     */
+    protected $configuration;
+
+    /**
      * {@inheritDoc}
      */
     public function getInstallPath(PackageInterface $package)
     {
-        $type = $package->getType();
-        $extra = $this->composer->getPackage()->getExtra();
+        $configuration = $this->getPluginConfiguration();
+        $pattern = $configuration->getPattern($package);
+        if ($pattern) {
+            return $this->buildPath($pattern,
+              $this->getPackageReplacementTokens($package));
+        } // In the case no pattern is given, we use the default behaviour.
+        else {
+            return parent::getInstallPath($package);
+        }
+    }
 
+    /**
+     * Retrieve replacement tokens for the given package.
+     *
+     * @param \Composer\Package\PackageInterface $package
+     *
+     * @return array
+     */
+    protected function getPackageReplacementTokens(PackageInterface $package)
+    {
         $vars = array(
-          'type' => $type,
+          '{$type}' => $package->getType(),
         );
 
         $prettyName = $package->getPrettyName();
-
         if (strpos($prettyName, '/') !== false) {
-            $pieces = explode('/', $prettyName);
-
-            $vars['vendor'] = $pieces[0];
-            $vars['name'] = $pieces[1];
+            $pieces = explode('/', $prettyName);;
+            $vars['{$vendor}'] = $pieces[0];
+            $vars['{$name}'] = $pieces[1];
 
         } else {
-            $vars['vendor'] = '';
-            $vars['name'] = $prettyName;
-
+            $vars['{$vendor}'] = '';
+            $vars['{$name}'] = $prettyName;
         }
 
-        return $this->templatePath($extra['custom-installer'][$type], $vars);
+        return $vars;
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public function supports($packageType)
-    {
-        if ($this->composer->getPackage()) {
-            $extra = $this->composer->getPackage()->getExtra();
-
-            if (!empty($extra['custom-installer'])) {
-                if (!empty($extra['custom-installer'][$packageType])) {
-                    return true;
-                }
-
-            }
-
-        }
-
-        return false;
-    }
-
-    /**
-     * Replace vars in a path
+     * Replace path pattern with replacement tokens.
      *
-     * @see Composer\Installers\BaseInstaller::templatePath()
-     *
-     * @param  string $path
-     * @param  array $vars
+     * @param  string $pattern
+     * @param  array $tokens
      * @return string
      */
-    protected function templatePath($path, array $vars = array())
+    protected function buildPath($pattern, array $tokens = array())
     {
-        if (strpos($path, '{') !== false) {
-            extract($vars);
-            preg_match_all('@\{\$([A-Za-z0-9_]*)\}@i', $path, $matches);
-            if (!empty($matches[1])) {
-                foreach ($matches[1] as $var) {
-                    $path = str_replace('{$' . $var . '}', $$var, $path);
-                }
-            }
+        return strtr($pattern, $tokens);
+    }
+
+    /**
+     * Retrieve plugin configuration object.
+     *
+     * @return \DavidBarratt\CustomInstaller\Configuration
+     */
+    protected function getPluginConfiguration()
+    {
+        if (!isset($this->configuration)) {
+            $extra = $this->composer->getPackage()->getExtra();
+            $this->configuration = new Configuration($extra);
         }
 
-        return $path;
+        return $this->configuration;
     }
+
 }
