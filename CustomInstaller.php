@@ -16,55 +16,52 @@ class CustomInstaller extends LibraryInstaller
   /**
    * {@inheritDoc}
    */
-  public function getInstallPath(PackageInterface $package)
-  {
-      $type = $package->getType();
-      $extra = $this->composer->getPackage()->getExtra();
+    public function getInstallPath(PackageInterface $package)
+    {
+        $type = $package->getType();
+        $extra = $this->composer->getPackage()->getExtra();
 
-      $vars = array(
+        $vars = array(
         'type' => $type,
-      );
+        );
 
-      $prettyName = $package->getPrettyName();
+        $prettyName = $package->getPrettyName();
 
-      if (strpos($prettyName, '/') !== FALSE) {
+        if (strpos($prettyName, '/') !== false) {
+            $pieces = explode('/', $prettyName);
+            ;
 
-        $pieces = explode('/', $prettyName);;
+            $vars['vendor'] = $pieces[0];
+            $vars['name'] = $pieces[1];
 
-        $vars['vendor'] = $pieces[0];
-        $vars['name'] = $pieces[1];
+        } else {
+            $vars['vendor'] = '';
+            $vars['name'] = $prettyName;
 
-      } else {
+        }
 
-        $vars['vendor'] = '';
-        $vars['name'] = $prettyName;
-
-      }
-
-      return $this->templatePath($extra['custom-installer'][$type], $vars);
-  }
+        return $this->templatePath($extra['custom-installer'][$type], $vars);
+    }
 
   /**
    * {@inheritDoc}
    */
-  public function supports($packageType)
-  {
-      if ($this->composer->getPackage()) {
+    public function supports($packageType)
+    {
+        if ($this->composer->getPackage()) {
+            $extra = $this->composer->getPackage()->getExtra();
 
-        $extra = $this->composer->getPackage()->getExtra();
+            if (!empty($extra['custom-installer'])) {
+                if (!empty($extra['custom-installer'][$packageType])) {
+                    return true;
+                }
 
-        if (!empty($extra['custom-installer'])) {
-
-          if (!empty($extra['custom-installer'][$packageType])) {
-            return true;
-          }
+            }
 
         }
 
-      }
-
-      return false;
-  }
+        return false;
+    }
 
   /**
    * Replace vars in a path
@@ -75,19 +72,18 @@ class CustomInstaller extends LibraryInstaller
    * @param  array  $vars
    * @return string
    */
-  protected function templatePath($path, array $vars = array())
-  {
-      if (strpos($path, '{') !== false) {
-          extract($vars);
-          preg_match_all('@\{\$([A-Za-z0-9_]*)\}@i', $path, $matches);
-          if (!empty($matches[1])) {
-              foreach ($matches[1] as $var) {
-                  $path = str_replace('{$' . $var . '}', $$var, $path);
-              }
-          }
-      }
+    protected function templatePath($path, array $vars = array())
+    {
+        if (strpos($path, '{') !== false) {
+            extract($vars);
+            preg_match_all('@\{\$([A-Za-z0-9_]*)\}@i', $path, $matches);
+            if (!empty($matches[1])) {
+                foreach ($matches[1] as $var) {
+                    $path = str_replace('{$' . $var . '}', $$var, $path);
+                }
+            }
+        }
 
-      return $path;
-  }
-
+        return $path;
+    }
 }
