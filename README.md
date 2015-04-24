@@ -7,16 +7,42 @@ Simply require this library in your composer.json file. Typically this will be a
 ```json
 {
     "require": {
-        "davidbarratt/custom-installer": "1.0.*@alpha"
+        "davidbarratt/custom-installer": "1.0.*@dev"
     }
 }
 ```
 
 ## Usage
-The added parameter(s) are only allowed on the root to avoid conflicts between multiple libraries. This also prevents a project owner from having a directory accidentally wiped out by a library.
+The added parameter(s) are only allowed on the root to avoid conflicts between multiple libraries. This also prevents a project owner from having a directory accidentally wiped out by a library. Note: Each package will go in it’s respective folder in the order in which they are installed.
 
-#### custom-installer (root-level)
-You may use [Composer Installer](https://github.com/composer/installers) type [installation paths](https://github.com/composer/installers#custom-install-paths) with the variables `{$name}`, `{$vendor}`, and `{$type}`. Each package will go in it’s respective folder in the order in which they are installed.
+The configuration has to be added in `custom-installer` of `composer.json`'s `extra` section. It is similar to [Composer installer's installation paths](https://github.com/composer/installers#custom-install-paths).
+
+### Pattern syntax
+
+The key of the the configuration array is the path pattern. You can use some
+replacement tokens:
+
+- `{$name}`: The name of the package (e.g. `yaml` of `symfony/yaml`)
+- `{$vendor}`: The vendor of the package (e.g. `symfony` of `symfony/yaml`)
+- `{$type}`: for the composer package type (e.g. `library`, `drupal-module`)
+
+### Package filters
+
+The value of the configuration array has to be an array. It holds the package 
+filter for the given pattern. The pattern will be applied if any filter matches.
+
+#### Package name filter
+
+You can  specify a pattern per full package name (`[vendor]/[name]`).
+
+#### Package type filter
+
+With `type:[package-type]` you can define a pattern per package type. You can use
+any custom package type and [are not limited to a predefined set](https://github.com/composer/installers#should-we-allow-dynamic-package-types-or-paths-no).
+
+Example: `type:custom-library` for package type `custom-library`
+
+### Examples
 
 ```json
 {
@@ -24,7 +50,8 @@ You may use [Composer Installer](https://github.com/composer/installers) type [i
         "custom-installer": {
             "web/": ["type:drupal-core"],
             "web/sites/{$name}/": ["type:drupal-site"],
-            "custom/{$type}/{$vendor}/{$name}/": ["type:random-type"]
+            "custom/{$type}/{$vendor}/{$name}/": ["type:random-type"],
+            "web/sites/all/libraries/ckeditor": ["ckeditor/ckeditor"]
         }
     }
 }
