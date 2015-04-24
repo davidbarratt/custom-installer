@@ -8,7 +8,6 @@
 namespace DavidBarratt\CustomInstaller;
 
 use Composer\Installer\LibraryInstaller;
-use Composer\Package\Package;
 use Composer\Package\PackageInterface;
 
 class CustomInstaller extends LibraryInstaller
@@ -33,6 +32,15 @@ class CustomInstaller extends LibraryInstaller
         else {
             return parent::getInstallPath($package);
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function supports($packageType)
+    {
+        // The installer supports any package type, but we skip metapackages.
+        return $packageType != 'metapackage';
     }
 
     /**
