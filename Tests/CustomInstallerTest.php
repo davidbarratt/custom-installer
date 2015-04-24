@@ -18,11 +18,16 @@ class CustomInstallerTest extends PHPUnit_Framework_TestCase
 {
 
     /**
-     * testInstallPath
+     * Tests installation path for given package/spec combination.
+     *
+     * @param string $name      Full package name (including vendor)
+     * @param string $type      Composer package type
+     * @param array  $spec      Custom-Installer configuration
+     * @param string $expected  Expected path
      *
      * @dataProvider dataForInstallPath
      */
-    public function testInstallPath($name, $type, $path, $expected)
+    public function testInstallPath($name, $type, $spec, $expected)
     {
 
         $composer = new Composer();
@@ -38,33 +43,36 @@ class CustomInstallerTest extends PHPUnit_Framework_TestCase
         $consumerPackage = new RootPackage('foo/bar', '1.0.0', '1.0.0');
         $composer->setPackage($consumerPackage);
         $consumerPackage->setExtra(array(
-          'custom-installer' => array(
-            $type => $path,
-          ),
+          'custom-installer' => $spec,
         ));
         $result = $installer->getInstallPath($package);
         $this->assertEquals($expected, $result);
     }
 
+    /**
+     * Data provider for testing multiple install paths.
+     *
+     * @return array
+     */
     public function dataForInstallPath()
     {
         return array(
           array(
             'davidbarratt/davidwbarratt',
             'drupal-site',
-            'sites/{$name}/',
+            array('drupal-site' => 'sites/{$name}/'),
             'sites/davidwbarratt/',
           ),
           array(
             'awesome/package',
             'custom-type',
-            'custom/{$vendor}/{$name}/',
+            array('custom-type' => 'custom/{$vendor}/{$name}/'),
             'custom/awesome/package/',
           ),
           array(
             'drupal/core',
             'drupal-core',
-            'web/',
+            array('drupal-core' => 'web/'),
             'web/',
           ),
         );
