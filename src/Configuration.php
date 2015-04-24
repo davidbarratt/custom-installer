@@ -67,7 +67,7 @@ class Configuration
 
                     $match = array();
                     // Type matching
-                    if (preg_match('/^type:(.*)$/gi', $spec, $match)) {
+                    if (preg_match('/^type:(.*)$/', $spec, $match)) {
                         $this->types[$match[1]] = $pattern;
                     } // Else it must be the package name.
                     else {
