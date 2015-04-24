@@ -31,7 +31,7 @@ class CustomInstallerTest extends PHPUnit_Framework_TestCase
     {
 
         $composer = new Composer();
-        $config = new Config();
+        $config = new Config(false, realpath('.'));
         $composer->setConfig($config);
 
         $repository = $this->getMock('Composer\Repository\InstalledRepositoryInterface');
@@ -74,6 +74,41 @@ class CustomInstallerTest extends PHPUnit_Framework_TestCase
             'drupal-core',
             array('drupal-core' => 'web/'),
             'web/',
+          ),
+          // Without spec.
+          array(
+            'package/without-spec',
+            'library',
+            array(),
+            realpath('.') . '/vendor/package/without-spec',
+          ),
+          // New format
+          array(
+            'config/with-new-format',
+            'custom-type',
+            array(
+              'custom/{$type}/{$vendor}/{$name}/' => array('type:custom-type'),
+            ),
+            'custom/custom-type/config/with-new-format/',
+          ),
+          // Per package
+          array(
+            'config/per-package',
+            'custom-type',
+            array(
+              'custom/{$vendor}/{$name}/' => array('config/per-package'),
+            ),
+            'custom/config/per-package/',
+          ),
+          // Package over type
+          array(
+            'config/package-over-type',
+            'custom-type',
+            array(
+              'type-folder/{$vendor}/{$name}/' => array('type:custom-type'),
+              'package-folder/{$vendor}/{$name}/' => array('config/package-over-type'),
+            ),
+            'package-folder/config/package-over-type/',
           ),
         );
     }
