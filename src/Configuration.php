@@ -64,7 +64,7 @@ class Configuration
             return TRUE;
         }
         else {
-            return isset($this->packages[$packageType]);
+            return isset($this->types[$packageType]);
         }
     }
 
