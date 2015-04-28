@@ -39,9 +39,15 @@ class CustomInstaller extends LibraryInstaller
      */
     public function supports($packageType)
     {
-        // The installer supports any package type, but we skip some composer
-        // specific types with special handling.
-        return !in_array($packageType, array('metapackage', 'composer-plugin'));
+        // The installer may support any package type, but we allways skip some
+        // composer specific types with special handling.
+        if (in_array($packageType, array('metapackage', 'composer-plugin'))) {
+            return FALSE;
+        };
+
+
+        return $this->getPluginConfiguration()->isPackageTypeSupported($packageType);
+
     }
 
     /**
