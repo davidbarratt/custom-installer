@@ -31,16 +31,24 @@ replacement tokens:
 The value of the configuration array has to be an array. It holds the package 
 filter for the given pattern. The pattern will be applied if any filter matches.
 
-#### Package name filter
-
-You can  specify a pattern per full package name (`[vendor]/[name]`).
-
 #### Package type filter
 
 With `type:[package-type]` you can define a pattern per package type. You can use
 any custom package type and [are not limited to a predefined set](https://github.com/composer/installers#should-we-allow-dynamic-package-types-or-paths-no).
 
+Composer specific package types `metapackage` or `composer-plugin` will never be
+handled by _Custom Installer_.
+
 Example: `type:custom-library` for package type `custom-library`
+
+#### Package name filter
+
+You can  specify a pattern per full package name (`[vendor]/[name]`).
+
+_Custom Installer_ will only handle a specific package if a configuration exists
+that also handles the package type in general or `custom-installer-all-package-types`
+is set to `true`. This way, other installers can also handle certain packages they
+were explicitly built for.
 
 ### Examples
 
@@ -52,7 +60,8 @@ Example: `type:custom-library` for package type `custom-library`
             "web/sites/{$name}/": ["type:drupal-site"],
             "custom/{$type}/{$vendor}/{$name}/": ["type:random-type"],
             "web/sites/all/libraries/ckeditor": ["ckeditor/ckeditor"]
-        }
+        },
+        "custom-installer-all-package-types": true
     }
 }
 ```
