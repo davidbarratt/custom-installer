@@ -23,14 +23,21 @@ class CustomInstaller extends LibraryInstaller
      */
     public function getInstallPath(PackageInterface $package)
     {
+        return parent::getInstallPath($package);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getPackageBasePath(PackageInterface $package)
+    {
         $configuration = $this->getPluginConfiguration();
         $pattern = $configuration->getPattern($package);
         if ($pattern) {
-            return $this->buildPath($pattern,
-              $this->getPackageReplacementTokens($package));
-        } // In the case no pattern is given, we use the default behaviour.
+            return $this->buildPath($pattern, $this->getPackageReplacementTokens($package));
+        }
         else {
-            return parent::getInstallPath($package);
+            return parent::getPackageBasePath($package);
         }
     }
 
