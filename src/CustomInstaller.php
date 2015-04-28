@@ -45,9 +45,7 @@ class CustomInstaller extends LibraryInstaller
             return FALSE;
         };
 
-
         return $this->getPluginConfiguration()->isPackageTypeSupported($packageType);
-
     }
 
     /**
