@@ -1,10 +1,10 @@
 <?php
 /**
-  * Custom Installer Plugin.
-  *
-  * @author David Barratt <david@davidwbarratt.com>
-  * @copyright Copyright (c) 2014, David Barratt
-  */
+ * Custom Installer Plugin.
+ *
+ * @author David Barratt <david@davidwbarratt.com>
+ * @copyright Copyright (c) 2014, David Barratt
+ */
 namespace DavidBarratt\CustomInstaller;
 
 use Composer\Composer;

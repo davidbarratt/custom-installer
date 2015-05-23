@@ -6,7 +6,7 @@
   "homepage": "https://github.com/davidbarratt/custom-installer",
   "autoload": {
     "psr-4": {
-      "DavidBarratt\\CustomInstaller\\": ""
+      "DavidBarratt\\CustomInstaller\\": "src"
     }
   },
   "extra": {
@@ -17,6 +17,7 @@
   },
   "require-dev": {
     "composer/composer": "1.0.*@dev",
-    "phpunit/phpunit": "4.1.*"
+    "phpunit/phpunit": "4.1.*",
+    "squizlabs/php_codesniffer": "2.*"
   }
 }
