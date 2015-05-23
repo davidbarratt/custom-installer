@@ -1,5 +1,7 @@
 Composer Custom Type Installer
 ==============================
+[![Build Status](https://travis-ci.org/davidbarratt/custom-installer.svg?branch=develop)](https://travis-ci.org/davidbarratt/custom-installer)
+
 Adds a root-level custom [type](https://getcomposer.org/doc/04-schema.md#type) installer path to composer.json. Any custom type can be used to define a path the [type](https://getcomposer.org/doc/04-schema.md#type) should be installed in.
 
 ## Installation
