@@ -1,10 +1,10 @@
 <?php
 /**
-  * Custom Installer Test.
-  *
-  * @author David Barratt <david@davidwbarratt.com>
-  * @copyright Copyright (c) 2014, David Barratt
-  */
+ * Custom Installer Test.
+ *
+ * @author David Barratt <david@davidwbarratt.com>
+ * @copyright Copyright (c) 2014, David Barratt
+ */
 namespace DavidBarratt\CustomInstaller\Tests;
 
 use DavidBarratt\CustomInstaller\CustomInstaller;
@@ -17,11 +17,11 @@ use PHPUnit_Framework_TestCase;
 class CustomInstallerTest extends PHPUnit_Framework_TestCase
 {
 
-  /**
-    * testInstallPath
-    *
-    * @dataProvider dataForInstallPath
-    */
+    /**
+     * testInstallPath
+     *
+     * @dataProvider dataForInstallPath
+     */
     public function testInstallPath($name, $type, $path, $expected)
     {
 
@@ -38,9 +38,9 @@ class CustomInstallerTest extends PHPUnit_Framework_TestCase
         $consumerPackage = new RootPackage('foo/bar', '1.0.0', '1.0.0');
         $composer->setPackage($consumerPackage);
         $consumerPackage->setExtra(array(
-            'custom-installer' => array(
-                $type => $path,
-            ),
+          'custom-installer' => array(
+            $type => $path,
+          ),
         ));
         $result = $installer->getInstallPath($package);
         $this->assertEquals($expected, $result);
@@ -48,27 +48,25 @@ class CustomInstallerTest extends PHPUnit_Framework_TestCase
 
     public function dataForInstallPath()
     {
-          return array(
-            array(
-              'davidbarratt/davidwbarratt',
-              'drupal-site',
-              'sites/{$name}/',
-              'sites/davidwbarratt/',
-            ),
-            array(
-              'awesome/package',
-              'custom-type',
-              'custom/{$vendor}/{$name}/',
-              'custom/awesome/package/',
-            ),
-            array(
-              'drupal/core',
-              'drupal-core',
-              'web/',
-              'web/',
-            ),
-          );
+        return array(
+          array(
+            'davidbarratt/davidwbarratt',
+            'drupal-site',
+            'sites/{$name}/',
+            'sites/davidwbarratt/',
+          ),
+          array(
+            'awesome/package',
+            'custom-type',
+            'custom/{$vendor}/{$name}/',
+            'custom/awesome/package/',
+          ),
+          array(
+            'drupal/core',
+            'drupal-core',
+            'web/',
+            'web/',
+          ),
+        );
     }
-
-
 }
