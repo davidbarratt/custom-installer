@@ -35,8 +35,7 @@ class CustomInstaller extends LibraryInstaller
         $pattern = $configuration->getPattern($package);
         if ($pattern) {
             return $this->buildPath($pattern, $this->getPackageReplacementTokens($package));
-        }
-        else {
+        } else {
             return parent::getPackageBasePath($package);
         }
     }
@@ -49,8 +48,8 @@ class CustomInstaller extends LibraryInstaller
         // The installer may support any package type, but we allways skip some
         // composer specific types with special handling.
         if (in_array($packageType, array('metapackage', 'composer-plugin'))) {
-            return FALSE;
-        };
+            return false;
+        }
 
         return $this->getPluginConfiguration()->isPackageTypeSupported($packageType);
     }
@@ -70,7 +69,7 @@ class CustomInstaller extends LibraryInstaller
 
         $prettyName = $package->getPrettyName();
         if (strpos($prettyName, '/') !== false) {
-            $pieces = explode('/', $prettyName);;
+            $pieces = explode('/', $prettyName);
             $vars['{$vendor}'] = $pieces[0];
             $vars['{$name}'] = $pieces[1];
 
@@ -108,5 +107,4 @@ class CustomInstaller extends LibraryInstaller
 
         return $this->configuration;
     }
-
 }
