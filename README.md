@@ -48,9 +48,7 @@ Example: `type:custom-library` for package type `custom-library`
 You can  specify a pattern per full package name (`[vendor]/[name]`).
 
 _Custom Installer_ will only handle a specific package if a configuration exists
-that also handles the package type in general or `custom-installer-all-package-types`
-is set to `true`. This way, other installers can also handle certain packages they
-were explicitly built for.
+that also handles the package type in general.
 
 ### Examples
 
@@ -62,8 +60,7 @@ were explicitly built for.
             "web/sites/{$name}/": ["type:drupal-site"],
             "custom/{$type}/{$vendor}/{$name}/": ["type:random-type"],
             "web/sites/all/libraries/ckeditor": ["ckeditor/ckeditor"]
-        },
-        "custom-installer-all-package-types": true
+        }
     }
 }
 ```

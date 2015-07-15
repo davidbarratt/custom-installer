@@ -21,11 +21,6 @@ class Configuration
     protected $packages = array();
 
     /**
-     * @var bool
-     */
-    protected $allPackageTypes = false;
-
-    /**
      * @param array $extra
      */
     public function __construct($extra = array())
@@ -60,11 +55,7 @@ class Configuration
      */
     public function isPackageTypeSupported($packageType)
     {
-        if ($this->allPackageTypes) {
-            return true;
-        } else {
-            return isset($this->types[$packageType]);
-        }
+        return isset($this->types[$packageType]);
     }
 
     /**
@@ -72,12 +63,6 @@ class Configuration
      */
     protected function convert($extra)
     {
-        // If the custom installer shall handle all package types, the setting
-        // needs to be set in the extra config.
-        if (!empty($extra['custom-installer-all-package-types'])) {
-            $this->allPackageTypes = true;
-        }
-
         // Backwards compatibility.
         // @todo: separate interface?
         if ($this->isAlpha1($extra)) {
