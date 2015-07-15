@@ -102,7 +102,25 @@ class CustomInstaller extends LibraryInstaller
     {
         if (!isset($this->configuration)) {
             $extra = $this->composer->getPackage()->getExtra();
-            $this->configuration = new Configuration($extra);
+
+            // We check if we need to support the legacy configuration.
+            $legacy = false;
+            if (isset($extra['custom-installer'])) {
+                // Legacy
+                $legacy = true;
+                foreach ($extra['custom-installer'] as $key => $val) {
+                    if (is_array($val)) {
+                        $legacy = false;
+                        break;
+                    }
+                }
+            }
+
+            if ($legacy) {
+                $this->configuration = new ConfigurationAlpha1($extra);
+            } else {
+                $this->configuration = new Configuration($extra);
+            }
         }
 
         return $this->configuration;
