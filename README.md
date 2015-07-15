@@ -59,8 +59,22 @@ that also handles the package type in general.
             "web/": ["type:drupal-core"],
             "web/sites/{$name}/": ["type:drupal-site"],
             "custom/{$type}/{$vendor}/{$name}/": ["type:random-type"],
-            "web/sites/all/libraries/ckeditor": ["ckeditor/ckeditor"]
+            "vendor/{$vendor}/{$name}/": ["type:library"],
+            "web/sites/all/libraries/{$name}/": [
+                "type:component",
+                "ckeditor/ckeditor",
+                "flesler/jquery.scrollto"
+            ],
+            "custom-folder-for-single-package": ["myvendorname/single-package"],
         }
     }
 }
 ```
+
+In the example we want to make sure _CKEditor_ and _Jquery ScrollTo_ will be
+placed in `web/sites/all/libraries`. Both packages are of of package type
+`library`. In order to change the path of those packages, we must declare a
+fallback for the package type `library`. It shall stay in the default vendor
+location (as `library` is the default composer package type). If you do not do
+that the custom installer cannot handle the single packages (`ckeditor` and 
+`flesler/jquery.scrollto` ) due to [the way composer installer plugins work](https://github.com/composer/composer/pull/4059).
