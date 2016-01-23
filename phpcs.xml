@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<ruleset name="custom-installer">
+  <description>The coding standard for Custom Installer.</description>
+  <exclude-pattern>vendor/</exclude-pattern>
+  <rule ref="PSR2"></rule>
+</ruleset>
