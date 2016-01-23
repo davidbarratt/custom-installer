@@ -8,5 +8,5 @@ before_install:
 install:
   - composer install --no-interaction --prefer-source
 script:
-  - ./vendor/bin/phpcs
+  - ./vendor/bin/phpcs .
   - ./vendor/bin/phpunit
