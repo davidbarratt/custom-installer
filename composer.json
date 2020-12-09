@@ -13,10 +13,10 @@
     "class": "DavidBarratt\\CustomInstaller\\CustomInstallerPlugin"
   },
   "require": {
-    "composer-plugin-api": "~1.0"
+    "composer-plugin-api": "~1 || ~2"
   },
   "require-dev": {
-    "composer/composer": "~1.0@dev",
+    "composer/composer": "~1.0@dev || ~2.0@dev",
     "phpunit/phpunit": "~4.1",
     "squizlabs/php_codesniffer": "~2.5"
   }
