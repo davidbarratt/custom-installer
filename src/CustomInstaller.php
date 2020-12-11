@@ -32,7 +32,6 @@ class CustomInstaller extends LibraryInstaller
         } else {
             return parent::getInstallPath($package);
         }
-
     }
 
     /**
@@ -67,7 +66,6 @@ class CustomInstaller extends LibraryInstaller
             $pieces = explode('/', $prettyName);
             $vars['{$vendor}'] = $pieces[0];
             $vars['{$name}'] = $pieces[1];
-
         } else {
             $vars['{$vendor}'] = '';
             $vars['{$name}'] = $prettyName;
